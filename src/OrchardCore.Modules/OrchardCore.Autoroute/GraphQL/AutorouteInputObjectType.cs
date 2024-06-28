@@ -12,7 +12,7 @@ namespace OrchardCore.Autoroute.GraphQL
             Name = "AutoroutePartInput";
             Description = S["the custom URL part of the content item"];
 
-            AddScalarFilterFields<StringGraphType>("path", S["the path of the content item to filter"]);
+            this.AddScalarFilterFields<StringGraphType>("path", S["the path of the content item to filter"]);
         }
     }
 }

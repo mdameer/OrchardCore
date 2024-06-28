@@ -1,41 +1,42 @@
-using GraphQL.Types;
+using System;
+using Microsoft.Extensions.Options;
+using OrchardCore.Apis.GraphQL.Queries;
+using OrchardCore.Apis.GraphQL.Queries.Types;
+using OrchardCore.ContentManagement.GraphQL.Options;
 
 namespace OrchardCore.ContentManagement.GraphQL.Queries.Types
 {
-    public class ContentItemOrderByInput : InputObjectGraphType
+    public class ContentItemOrderByInput : OrderByInputObjectGraphType
     {
-        public ContentItemOrderByInput(string contentItemName)
-        {
-            Name = contentItemName + "OrderByInput";
+        private readonly IOptions<GraphQLContentOptions> _optionsAccessor;
 
-            Field<OrderByDirectionGraphType>("contentItemId");
-            Field<OrderByDirectionGraphType>("contentItemVersionId");
-            Field<OrderByDirectionGraphType>("contentType");
-            Field<OrderByDirectionGraphType>("displayText");
-            Field<OrderByDirectionGraphType>("published");
-            Field<OrderByDirectionGraphType>("latest");
-            Field<OrderByDirectionGraphType>("createdUtc");
-            Field<OrderByDirectionGraphType>("modifiedUtc");
-            Field<OrderByDirectionGraphType>("publishedUtc");
-            Field<OrderByDirectionGraphType>("owner");
-            Field<OrderByDirectionGraphType>("author");
+        public ContentItemOrderByInput(string contentItemName, IOptions<GraphQLContentOptions> optionsAccessor)
+        {
+            _optionsAccessor = optionsAccessor;
+
+            Name = $"{contentItemName}OrderByInput";
+
+            Description = $"the {contentItemName} content item order by input";
+
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("contentItemId", "content item id");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("contentItemVersionId", "the content item version id");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("contentType", "the content type of the content item");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("displayText", "the display text of the content item");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("published", "is the published version");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("latest", "is the latest version");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("createdUtc", "the date and time of creation");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("modifiedUtc", "the date and time of modification");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("publishedUtc", "the date and time of publication");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("owner", "the owner of the content item");
+            this.AddScalarFilterFields<OrderByDirectionGraphType>("author", "the author of the content item");
         }
-    }
 
-    public enum OrderByDirection
-    {
-        Ascending,
-        Descending
-    }
-
-    public class OrderByDirectionGraphType : EnumerationGraphType
-    {
-        public OrderByDirectionGraphType()
+        public override void AddScalarFilterFields(Type graphType, string fieldName, string description)
         {
-            Name = "OrderByDirection";
-            Description = "the order by direction";
-            Add("ASC", OrderByDirection.Ascending, "orders content items in ascending order");
-            Add("DESC", OrderByDirection.Descending, "orders content items in descending order");
+            if (!_optionsAccessor.Value.ShouldSkip(typeof(ContentItemType), fieldName))
+            {
+                base.AddScalarFilterFields(graphType, fieldName, description);
+            }
         }
     }
 }

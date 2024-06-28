@@ -5,13 +5,6 @@ using OrchardCore.Apis.GraphQL.Queries.Types;
 
 namespace OrchardCore.Apis.GraphQL.Queries
 {
-    public interface IFilterInputObjectGraphType : IInputObjectGraphType
-    {
-        void AddScalarFilterFields<TGraphType>(string fieldName, string description);
-
-        void AddScalarFilterFields(Type graphType, string fieldName, string description);
-    }
-
     public class WhereInputObjectGraphType : WhereInputObjectGraphType<object>, IFilterInputObjectGraphType
     {
     }
@@ -58,11 +51,6 @@ namespace OrchardCore.Apis.GraphQL.Queries
             {"_ends_with", "ends with the string"},
             {"_not_ends_with", "does not end with the string"},
         };
-
-        public virtual void AddScalarFilterFields<TGraphType>(string fieldName, string description)
-        {
-            AddScalarFilterFields(typeof(TGraphType), fieldName, description);
-        }
 
         public virtual void AddScalarFilterFields(Type graphType, string fieldName, string description)
         {

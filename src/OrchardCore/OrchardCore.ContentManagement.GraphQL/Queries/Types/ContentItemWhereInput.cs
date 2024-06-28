@@ -22,14 +22,14 @@ namespace OrchardCore.ContentManagement.GraphQL.Queries.Types
 
             Description = $"the {contentItemName} content item filters";
 
-            AddScalarFilterFields<IdGraphType>("contentItemId", "content item id");
-            AddScalarFilterFields<IdGraphType>("contentItemVersionId", "the content item version id");
-            AddScalarFilterFields<StringGraphType>("displayText", "the display text of the content item");
-            AddScalarFilterFields<DateTimeGraphType>("createdUtc", "the date and time of creation");
-            AddScalarFilterFields<DateTimeGraphType>("modifiedUtc", "the date and time of modification");
-            AddScalarFilterFields<DateTimeGraphType>("publishedUtc", "the date and time of publication");
-            AddScalarFilterFields<StringGraphType>("owner", "the owner of the content item");
-            AddScalarFilterFields<StringGraphType>("author", "the author of the content item");
+            this.AddScalarFilterFields<IdGraphType>("contentItemId", "content item id");
+            this.AddScalarFilterFields<IdGraphType>("contentItemVersionId", "the content item version id");
+            this.AddScalarFilterFields<StringGraphType>("displayText", "the display text of the content item");
+            this.AddScalarFilterFields<DateTimeGraphType>("createdUtc", "the date and time of creation");
+            this.AddScalarFilterFields<DateTimeGraphType>("modifiedUtc", "the date and time of modification");
+            this.AddScalarFilterFields<DateTimeGraphType>("publishedUtc", "the date and time of publication");
+            this.AddScalarFilterFields<StringGraphType>("owner", "the owner of the content item");
+            this.AddScalarFilterFields<StringGraphType>("author", "the author of the content item");
 
             var whereInputType = new ListGraphType(this);
             Field<ListGraphType<ContentItemWhereInput>>("Or").Description("OR logical operation").Type(whereInputType);

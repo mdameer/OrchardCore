@@ -37,6 +37,7 @@ namespace OrchardCore.ContentManagement.GraphQL
         {
             services.AddScoped<IIndexAliasProvider, DynamicContentFieldsIndexAliasProvider>();
             services.AddScoped<IContentTypeBuilder, DynamicContentTypeWhereInputBuilder>();
+            services.AddScoped<IContentTypeBuilder, DynamicContentTypeOrderByInputBuilder>();
             services.AddScoped<IContentDefinitionEventHandler, DynamicContentFieldsIndexAliasProvider>();
 
             return services;

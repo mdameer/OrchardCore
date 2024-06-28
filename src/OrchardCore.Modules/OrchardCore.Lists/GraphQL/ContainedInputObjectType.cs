@@ -12,7 +12,7 @@ namespace OrchardCore.Lists.GraphQL
             Name = "ContainedPartInput";
             Description = S["the list part of the content item"];
 
-            AddScalarFilterFields<IdGraphType>("listContentItemId", S["the content item id of the parent list of the content item to filter"]);
+            this.AddScalarFilterFields<IdGraphType>("listContentItemId", S["the content item id of the parent list of the content item to filter"]);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace OrchardCore.ContentLocalization.GraphQL
             Name = "LocalizationInputObjectType";
             Description = S["the localization part of the content item"];
 
-            AddScalarFilterFields<StringGraphType>("culture", S["the culture of the content item to filter"]);
+            this.AddScalarFilterFields<StringGraphType>("culture", S["the culture of the content item to filter"]);
             Field(x => x.LocalizationSet, nullable: true).Description(S["the localization set of the content item to filter"]);
         }
     }

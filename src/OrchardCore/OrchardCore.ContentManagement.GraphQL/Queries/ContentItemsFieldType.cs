@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.Apis.GraphQL;
 using OrchardCore.Apis.GraphQL.Queries;
+using OrchardCore.Apis.GraphQL.Queries.Types;
 using OrchardCore.Apis.GraphQL.Resolvers;
 using OrchardCore.ContentManagement.GraphQL.Options;
 using OrchardCore.ContentManagement.GraphQL.Queries.Predicates;
@@ -46,7 +47,7 @@ namespace OrchardCore.ContentManagement.GraphQL.Queries
             Type = typeof(ListGraphType<ContentItemType>);
 
             var whereInput = new ContentItemWhereInput(contentItemName, optionsAccessor);
-            var orderByInput = new ContentItemOrderByInput(contentItemName);
+            var orderByInput = new ContentItemOrderByInput(contentItemName, optionsAccessor);
 
             Arguments = new QueryArguments(
                 new QueryArgument<ContentItemWhereInput> { Name = "where", Description = "filters the content items", ResolvedType = whereInput },

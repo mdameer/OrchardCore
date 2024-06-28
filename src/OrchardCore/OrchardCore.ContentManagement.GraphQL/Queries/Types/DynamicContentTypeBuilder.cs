@@ -163,7 +163,7 @@ namespace OrchardCore.ContentManagement.GraphQL.Queries.Types
                     continue;
                 }
 
-                if (graphType is IFilterInputObjectGraphType inputGraphType)
+                if (graphType is WhereInputObjectGraphType whereInputGraphType)
                 {
                     if (part.PartDefinition.Fields.Any(field => contentFieldProviders.Any(cfp => cfp.HasFieldIndex(field))))
                     {
@@ -175,7 +175,23 @@ namespace OrchardCore.ContentManagement.GraphQL.Queries.Types
                             ResolvedType = new DynamicPartWhereInputGraphType(part)
                         };
 
-                        inputGraphType.AddField(field);
+                        whereInputGraphType.AddField(field);
+                        _dynamicPartFields[partName] = field;
+                    }
+                }
+                else if (graphType is OrderByInputObjectGraphType orderByInputObjectGraphType)
+                {
+                    if (part.PartDefinition.Fields.Any(field => contentFieldProviders.Any(cfp => cfp.HasFieldIndex(field))))
+                    {
+                        var field = new FieldType
+                        {
+                            Name = partFieldName,
+                            Description = S["Represents a {0}.", part.PartDefinition.Name],
+                            Type = typeof(DynamicPartOrderByInputGraphType),
+                            ResolvedType = new DynamicPartOrderByInputGraphType(part)
+                        };
+
+                        orderByInputObjectGraphType.AddField(field);
                         _dynamicPartFields[partName] = field;
                     }
                 }

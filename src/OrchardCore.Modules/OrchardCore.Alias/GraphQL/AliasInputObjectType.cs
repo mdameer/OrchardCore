@@ -12,7 +12,7 @@ namespace OrchardCore.Alias.GraphQL
             Name = "AliasPartInput";
             Description = S["the alias part of the content item"];
 
-            AddScalarFilterFields<StringGraphType>("alias", S["the alias of the content item"]);
+            this.AddScalarFilterFields<StringGraphType>("alias", S["the alias of the content item"]);
         }
     }
 }
