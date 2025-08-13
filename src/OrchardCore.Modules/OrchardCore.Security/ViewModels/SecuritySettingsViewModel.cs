@@ -22,6 +22,8 @@ public class SecuritySettingsViewModel
         }
     }
 
+    public string ContentSecurityPolicyReportUri { get; set; }
+
     public bool EnableSandbox { get; set; }
 
     public bool UpgradeInsecureRequests { get; set; }

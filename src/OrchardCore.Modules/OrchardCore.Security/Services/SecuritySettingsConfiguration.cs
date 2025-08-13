@@ -16,6 +16,7 @@ public sealed class SecuritySettingsConfiguration : IConfigureOptions<SecuritySe
             .GetAwaiter().GetResult();
 
         options.ContentSecurityPolicy = securitySettings.ContentSecurityPolicy;
+        options.ContentSecurityPolicyReportUri = securitySettings.ContentSecurityPolicyReportUri;
         options.ContentTypeOptions = securitySettings.ContentTypeOptions;
         options.PermissionsPolicy = securitySettings.PermissionsPolicy;
         options.ReferrerPolicy = securitySettings.ReferrerPolicy;

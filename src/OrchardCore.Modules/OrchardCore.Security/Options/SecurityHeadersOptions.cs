@@ -17,6 +17,8 @@ public class SecurityHeadersOptions
 
     public string[] ContentSecurityPolicy { get; set; } = SecurityHeaderDefaults.ContentSecurityPolicy;
 
+    public string ContentSecurityPolicyReportUri { get; set; }
+
     public string ContentTypeOptions { get; set; } = SecurityHeaderDefaults.ContentTypeOptions;
 
     public string[] PermissionsPolicy { get; set; } = SecurityHeaderDefaults.PermissionsPolicy;

@@ -31,6 +31,8 @@ public class SecuritySettings
         }
     }
 
+    public string ContentSecurityPolicyReportUri { get; set; }
+
     public string ContentTypeOptions { get; set; } = SecurityHeaderDefaults.ContentTypeOptions;
 
     public Dictionary<string, string> PermissionsPolicy

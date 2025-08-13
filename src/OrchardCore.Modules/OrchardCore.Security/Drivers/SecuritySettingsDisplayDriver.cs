@@ -70,6 +70,7 @@ public sealed class SecuritySettingsDisplayDriver : SiteDisplayDriver<SecuritySe
             model.FromConfiguration = currentSettings.FromConfiguration;
 
             model.ContentSecurityPolicy = settings.ContentSecurityPolicy;
+            model.ContentSecurityPolicyReportUri = currentSettings.ContentSecurityPolicyReportUri;
 
             model.EnableSandbox = currentSettings.ContentSecurityPolicy != null &&
                 currentSettings.ContentSecurityPolicy.ContainsKey(ContentSecurityPolicyValue.Sandbox);
@@ -109,6 +110,7 @@ public sealed class SecuritySettingsDisplayDriver : SiteDisplayDriver<SecuritySe
 
         settings.ContentTypeOptions = SecurityHeaderDefaults.ContentTypeOptions;
         settings.ContentSecurityPolicy = model.ContentSecurityPolicy;
+        settings.ContentSecurityPolicyReportUri = model.ContentSecurityPolicyReportUri;
         settings.PermissionsPolicy = model.PermissionsPolicy;
         settings.ReferrerPolicy = model.ReferrerPolicy;
 

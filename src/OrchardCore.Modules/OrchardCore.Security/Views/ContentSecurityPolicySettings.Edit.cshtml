@@ -75,6 +75,11 @@
             <label class="form-check-label" asp-for="UpgradeInsecureRequests">@T["Upgrade Insecure Requests"]</label>
         </div>
     </div>
+    <div class="mb-3" asp-validation-class-for="ContentSecurityPolicyReportUri">
+        <label class="form-label" asp-for="ContentSecurityPolicyReportUri">@T["Report URI"]</label>
+        <input class="form-control" asp-for="ContentSecurityPolicyReportUri" />
+        <span class="hint">@T["Security policy violations will be reported to this URL."]</span>
+    </div>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
