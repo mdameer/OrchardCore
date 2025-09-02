@@ -31,6 +31,8 @@ public class SecuritySettings
         }
     }
 
+    public bool EnableContentSecurityPolicyReporting { get; set; }
+
     public string ContentSecurityPolicyReportUri { get; set; }
 
     public string ContentTypeOptions { get; set; } = SecurityHeaderDefaults.ContentTypeOptions;

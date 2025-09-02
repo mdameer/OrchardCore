@@ -7,10 +7,12 @@ using Microsoft.Extensions.Logging;
 namespace OrchardCore.Security.Controllers;
 
 [ApiController]
-[Route("csp-report")]
+[Route(ReportPath)]
 [IgnoreAntiforgeryToken, AllowAnonymous]
 public class ContentSecurityPolicyReportController : ControllerBase
 {
+    public const string ReportPath = "csp-report";
+
     private readonly ILogger _logger;
 
     public ContentSecurityPolicyReportController(ILogger<ContentSecurityPolicyReportController> logger)

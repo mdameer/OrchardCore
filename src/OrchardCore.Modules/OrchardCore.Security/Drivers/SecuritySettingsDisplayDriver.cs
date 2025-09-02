@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -7,6 +8,7 @@ using OrchardCore.DisplayManagement.Handlers;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Environment.Shell;
+using OrchardCore.Security.Controllers;
 using OrchardCore.Security.Options;
 using OrchardCore.Security.Settings;
 using OrchardCore.Security.ViewModels;
@@ -70,7 +72,14 @@ public sealed class SecuritySettingsDisplayDriver : SiteDisplayDriver<SecuritySe
             model.FromConfiguration = currentSettings.FromConfiguration;
 
             model.ContentSecurityPolicy = settings.ContentSecurityPolicy;
-            model.ContentSecurityPolicyReportUri = currentSettings.ContentSecurityPolicyReportUri;
+            model.EnableContentSecurityPolicyReporting = currentSettings.EnableContentSecurityPolicyReporting;
+            model.UseContentSecurityPolicyReportController = string.Equals(
+                currentSettings.ContentSecurityPolicyReportUri?.TrimStart('/'),
+                ContentSecurityPolicyReportController.ReportPath,
+                StringComparison.OrdinalIgnoreCase);
+            model.ContentSecurityPolicyReportUri = model.UseContentSecurityPolicyReportController
+                ? string.Empty
+                : currentSettings.ContentSecurityPolicyReportUri;
 
             model.EnableSandbox = currentSettings.ContentSecurityPolicy != null &&
                 currentSettings.ContentSecurityPolicy.ContainsKey(ContentSecurityPolicyValue.Sandbox);
@@ -110,7 +119,17 @@ public sealed class SecuritySettingsDisplayDriver : SiteDisplayDriver<SecuritySe
 
         settings.ContentTypeOptions = SecurityHeaderDefaults.ContentTypeOptions;
         settings.ContentSecurityPolicy = model.ContentSecurityPolicy;
-        settings.ContentSecurityPolicyReportUri = model.ContentSecurityPolicyReportUri;
+        settings.EnableContentSecurityPolicyReporting = model.EnableContentSecurityPolicyReporting;
+        if (model.EnableContentSecurityPolicyReporting)
+        {
+            settings.ContentSecurityPolicyReportUri = model.UseContentSecurityPolicyReportController
+                ? "/" + ContentSecurityPolicyReportController.ReportPath
+                : model.ContentSecurityPolicyReportUri;
+        }
+        else
+        {
+            settings.ContentSecurityPolicyReportUri = null;
+        }
         settings.PermissionsPolicy = model.PermissionsPolicy;
         settings.ReferrerPolicy = model.ReferrerPolicy;
 

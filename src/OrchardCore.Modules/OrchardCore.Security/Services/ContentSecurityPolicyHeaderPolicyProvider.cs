@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using OrchardCore.Security.Options;
 
 namespace OrchardCore.Security.Services;
 
@@ -11,7 +12,8 @@ public class ContentSecurityPolicyHeaderPolicyProvider : HeaderPolicyProvider
     {
         var policies = Options.ContentSecurityPolicy?.ToList() ?? [];
 
-        if (!string.IsNullOrWhiteSpace(Options.ContentSecurityPolicyReportUri))
+        if (Options.EnableContentSecurityPolicyReporting &&
+            !string.IsNullOrWhiteSpace(Options.ContentSecurityPolicyReportUri))
         {
             policies.Add($"{ContentSecurityPolicyValue.ReportUri} {Options.ContentSecurityPolicyReportUri}");
         }
