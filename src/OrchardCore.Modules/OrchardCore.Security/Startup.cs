@@ -33,6 +33,9 @@ public sealed class Startup : StartupBase
 
         builder.UseSecurityHeaders(options =>
         {
+            options.EnableContentSecurityPolicyReporting = securityOptions.EnableContentSecurityPolicyReporting;
+            options.ContentSecurityPolicyReportUri = securityOptions.ContentSecurityPolicyReportUri;
+
             options
                 .AddContentSecurityPolicy(securityOptions.ContentSecurityPolicy)
                 .AddContentTypeOptions()
